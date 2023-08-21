@@ -73,4 +73,18 @@ public class RegistrationTest {
         $x("//div/button").click();
         $x("//div//span[contains(text(), 'Доставка в выбранный город недоступна')]").shouldBe(visible);
     }
+
+        @Test
+    void shouldRegisterErrorEmptyFieldNameTest() {
+        $("[placeholder='Город']").setValue("Новосибирск");
+        $("[placeholder='Дата встречи']").doubleClick();
+        $("[placeholder='Дата встречи']").sendKeys(Keys.BACK_SPACE);
+        String planningDate = generateDate(3, "dd.MM.yyyy");
+        $("[placeholder='Дата встречи']").setValue(planningDate);
+        $("[name='name']").setValue("");
+        $("[name='phone']").setValue("+71234567890");
+        $("[data-test-id='agreement']").click();
+        $x("//div/button").click();
+        $x("//div//span[contains(text(), 'Поле обязательно для заполнения')]").shouldBe(visible);
+    }
 }
