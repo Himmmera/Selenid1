@@ -76,7 +76,7 @@ public class RegistrationTest {
 
         @Test
     void shouldRegisterErrorEmptyFieldNameTest() {
-        $("[placeholder='Город']").setValue("Новосибирск");
+        $("[placeholder='Город']").setValue("Москва");
         $("[placeholder='Дата встречи']").doubleClick();
         $("[placeholder='Дата встречи']").sendKeys(Keys.BACK_SPACE);
         String planningDate = generateDate(3, "dd.MM.yyyy");
@@ -86,5 +86,47 @@ public class RegistrationTest {
         $("[data-test-id='agreement']").click();
         $x("//div/button").click();
         $x("//div//span[contains(text(), 'Поле обязательно для заполнения')]").shouldBe(visible);
+    }
+
+        @Test
+    void shouldRegisterErrorFieldPhoneNoMoreThirteenCharacterTest() {
+        $("[placeholder='Город']").setValue("Москва");
+        $("[placeholder='Дата встречи']").doubleClick();
+        $("[placeholder='Дата встречи']").sendKeys(Keys.BACK_SPACE);
+        String planningDate = generateDate(3, "dd.MM.yyyy");
+        $("[placeholder='Дата встречи']").setValue(planningDate);
+        $("[name='name']").setValue("Петров Николай");
+        $("[name='phone']").setValue("+793456789012");
+        $("[data-test-id='agreement']").click();
+        $x("//div/button").click();
+        $x("//div//span[contains(text(), 'Телефон указан неверно.')]").shouldBe(visible);
+    }
+
+    @Test
+    void shouldRegisterErrorFieldPhoneNoPlusSignTest() {
+        $("[placeholder='Город']").setValue("Москва");
+        $("[placeholder='Дата встречи']").doubleClick();
+        $("[placeholder='Дата встречи']").sendKeys(Keys.BACK_SPACE);
+        String planningDate = generateDate(3, "dd.MM.yyyy");
+        $("[placeholder='Дата встречи']").setValue(planningDate);
+        $("[name='name']").setValue("Петров Николай");
+        $("[name='phone']").setValue("79345678901");
+        $("[data-test-id='agreement']").click();
+        $x("//div/button").click();
+        $x("//div//span[contains(text(), 'Телефон указан неверно.')]").shouldBe(visible);
+    }
+
+    @Test
+    void shouldRegisterErrorCheckboxIsNotSetTest() {
+        $("[placeholder='Город']").setValue("Москва");
+        $("[placeholder='Дата встречи']").doubleClick();
+        $("[placeholder='Дата встречи']").sendKeys(Keys.BACK_SPACE);
+        String planningDate = generateDate(3, "dd.MM.yyyy");
+        $("[placeholder='Дата встречи']").setValue(planningDate);
+        $("[name='name']").setValue("Петров Николай");
+        $("[name='phone']").setValue("+79345678901");
+        //$("[data-test-id='agreement']").click();
+        $x("//div/button").click();
+        $x("//div//span[contains(text(), 'Я соглашаюсь с условиями обработки')]").shouldBe(visible);
     }
 }
