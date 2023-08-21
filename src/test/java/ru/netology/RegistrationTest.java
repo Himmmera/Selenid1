@@ -22,7 +22,7 @@ public class RegistrationTest {
     void setUp() {
         Configuration.holdBrowserOpen = true;
         Configuration.browserSize = "1800x1100";
-        Configuration.timeout = 15000;
+        Configuration.timeout = 5000;
         open("http://localhost:9999/");
     }
 
