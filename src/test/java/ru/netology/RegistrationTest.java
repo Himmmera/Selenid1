@@ -22,7 +22,6 @@ public class RegistrationTest {
     void setUp() {
         Configuration.holdBrowserOpen = true;
         Configuration.browserSize = "1800x1100";
-        Configuration.timeout = 15000;
         open("http://localhost:9999/");
     }
 
@@ -42,7 +41,7 @@ public class RegistrationTest {
         $("[data-test-id='agreement']").click();
         $x("//div/button").click();
         $(".notification__content")
-                .shouldHave(Condition.text("Встреча успешно забронирована на " + planningDate))
+                .shouldHave(Condition.text("Встреча успешно забронирована на " + planningDate), Duration.ofSeconds(15))
                 .shouldBe(Condition.visible);
     }
 
@@ -57,7 +56,8 @@ public class RegistrationTest {
         $("[name='phone']").setValue("+71234567890");
         $("[data-test-id='agreement']").click();
         $x("//div/button").click();
-        $x("//div//span[contains(text(), 'Поле обязательно для заполнения')]").shouldBe(visible);
+        $x("//div//span[contains(text(), 'Поле обязательно для заполнения')]"), Duration.ofSeconds(15)
+            .shouldBe(visible);
     }
     
 @Test
@@ -71,7 +71,8 @@ public class RegistrationTest {
         $("[name='phone']").setValue("+71234567890");
         $("[data-test-id='agreement']").click();
         $x("//div/button").click();
-        $x("//div//span[contains(text(), 'Доставка в выбранный город недоступна')]").shouldBe(visible);
+        $x("//div//span[contains(text(), 'Доставка в выбранный город недоступна')]"), Duration.ofSeconds(15)
+            .shouldBe(visible);
     }
 
         @Test
@@ -85,7 +86,8 @@ public class RegistrationTest {
         $("[name='phone']").setValue("+71234567890");
         $("[data-test-id='agreement']").click();
         $x("//div/button").click();
-        $x("//div//span[contains(text(), 'Поле обязательно для заполнения')]").shouldBe(visible);
+        $x("//div//span[contains(text(), 'Поле обязательно для заполнения')]"), Duration.ofSeconds(15)
+            .shouldBe(visible);
     }
 
         @Test
@@ -99,7 +101,8 @@ public class RegistrationTest {
         $("[name='phone']").setValue("+793456789012");
         $("[data-test-id='agreement']").click();
         $x("//div/button").click();
-        $x("//div//span[contains(text(), 'Телефон указан неверно.')]").shouldBe(visible);
+        $x("//div//span[contains(text(), 'Телефон указан неверно.')]"), Duration.ofSeconds(15)
+            .shouldBe(visible);
     }
 
     @Test
@@ -113,7 +116,8 @@ public class RegistrationTest {
         $("[name='phone']").setValue("79345678901");
         $("[data-test-id='agreement']").click();
         $x("//div/button").click();
-        $x("//div//span[contains(text(), 'Телефон указан неверно.')]").shouldBe(visible);
+        $x("//div//span[contains(text(), 'Телефон указан неверно.')]"), Duration.ofSeconds(15)
+            .shouldBe(visible);
     }
 
     @Test
@@ -127,6 +131,7 @@ public class RegistrationTest {
         $("[name='phone']").setValue("+79345678901");
         //$("[data-test-id='agreement']").click();
         $x("//div/button").click();
-        $x("//div//span[contains(text(), 'Я соглашаюсь с условиями обработки')]").shouldBe(visible);
+        $x("//div//span[contains(text(), 'Я соглашаюсь с условиями обработки')]"), Duration.ofSeconds(15)
+            .shouldBe(visible);
     }
 }
